@@ -1,0 +1,128 @@
+.modal-overlay {
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 600px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Playfair", serif;
+}
+
+.close-btn {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+.subject-name {
+    font-size: 20px;
+}
+
+.modal-body {
+    max-height: 300px;
+    /* Adjust the height as needed */
+}
+
+.scrollable-content {
+    overflow-y: auto;
+    padding-right: 10px;
+    /* Add space for scrollbar */
+}
+
+.modal-detail-content-image {
+    width: 150px;
+    height: 180px;
+    padding: 10px;
+    border-radius: 30px;
+    border: 5px solid rgba(4, 7, 111, 0.633);
+    position: fixed;
+}
+
+.modal-details-content {
+    width: 400px;
+    /* background-color: red; */
+    height: 300px;
+    margin-left: 170px;
+}
+
+.centent-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 688px) {
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 500px;
+        height: max-content;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 525px) {
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 450px;
+        height: max-content;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 469px) {
+    .modal-detail-content-image {
+        width: 150px;
+        height: 180px;
+        padding: 10px;
+        border-radius: 30px;
+        border: 5px solid rgba(4, 7, 111, 0.633);
+        position: initial;
+        margin-left: 30px;
+    }
+    .modal-details-content {
+        width: 100%;
+        /* background-color: red; */
+        height: 470px;
+        margin-left: 20px;
+        margin-top: 30px;
+    }
+    .subject-name {
+        font-size: 30px;
+    }
+    .email {
+        font-size: 21px;
+    }
+    .centent-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    .modal-content {
+        height: 800px;
+        width: 95%;
+    }
+}

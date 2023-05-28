@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Playfair:ital,wght@0,600;1,400&display=swap');
+.header {
+    background-color: white;
+    width: 100%;
+    position: fixed;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    z-index: 1000;
+}
+
+.image-container {
+    height: 20px;
+}
+
+.img {
+    height: 110px;
+    cursor: pointer;
+}
+
+.welcome {
+    font-weight: 600;
+    font-family: 'Comfortaa', cursive;
+}
+
+.header-msg {
+    font-size: 15px;
+    font-family: 'Playfair', serif;
+}
+
+@media (max-width:323px) {
+    .welcome {
+        font-size: 12px;
+    }
+}
