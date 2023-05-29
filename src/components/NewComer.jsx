@@ -8,7 +8,7 @@ import ScrollableModal from "./ScrollableModal";
 // import { Link } from 'react-router-dom';
 
 function NewComer() {
-  const baseURL = "http://rccgadonai.org/api";
+  const baseURL = "https://rccgadonai.org/api";
   const [newComerList, setNewComerList] = useState([]);
   const [newComerListempty, setNewComerListEmpty] = useState(true);
   const [noOne, setNoOne] = useState(true);
@@ -203,7 +203,7 @@ function NewComer() {
                   <div
                     className="profilePicture"
                     style={{
-                      backgroundImage: `url(http://rccgadonai.org/api/profile_pictures/${newcomer.profile_picture})`,
+                      backgroundImage: `url(https://rccgadonai.org/api/profile_pictures/${newcomer.profile_picture})`,
                       backgroundRepeat: "no-repeat",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
