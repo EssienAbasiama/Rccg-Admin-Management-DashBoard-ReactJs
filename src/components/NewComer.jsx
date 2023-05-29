@@ -122,8 +122,7 @@ function NewComer() {
       console.log(response.data);
       return response.data;
     } catch (error) {
-      console.error("An Error Occured "+error);
-
+      console.log("An Error Occured "+error);
     }
   }
 
