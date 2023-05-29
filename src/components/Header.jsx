@@ -5,7 +5,7 @@ import RccgLogo from "../Images/RCCG logo.jpg";
 const Header = () => {
   const handleButtonClick = () => {
     // Navigate to a new site when the button is clicked
-    window.location.href = 'http://localhost:3001/';
+    window.location.href = 'https://main--loquacious-daifuku-00d43c.netlify.app/';
     // or
     // window.location.assign('https://www.example.com');
   };
