@@ -17,7 +17,7 @@ function ScrollableDetail(props) {
             <div
               className="modal-detail-content-image"
               style={{
-                backgroundImage: `url(http://127.0.0.1:8000/api/profile_pictures/${props.detail.profile_picture})`,
+                backgroundImage: `url(https://rccgadonai.org/api/profile_pictures/${props.detail.profile_picture})`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
