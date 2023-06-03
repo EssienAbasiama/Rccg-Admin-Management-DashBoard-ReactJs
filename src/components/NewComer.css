@@ -337,7 +337,15 @@
     .grid-item {
         width: 240px;
         padding: 10px;
-    }
+    }.email {
+
+    font-size: 10px;
+
+    font-weight: 300;
+
+    margin-top: 5px;
+
+}
 }
 
 @media (max-width:548px) {
@@ -350,7 +358,15 @@
     }
     .search-bar {
         width: 320px;
-    }
+    }.email {
+
+    font-size: 10px;
+
+    font-weight: 300;
+
+    margin-top: 5px;
+
+}
 }
 
 @media (max-width: 343px) {
