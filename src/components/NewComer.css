@@ -68,7 +68,7 @@
 }
 
 .email {
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 300;
     margin-top: 5px;
 }
@@ -360,4 +360,13 @@
     .search-bar {
         width: 300px;
     }
+    .email {
+
+    font-size: 10px;
+
+    font-weight: 300;
+
+    margin-top: 5px;
+
+}
 }
