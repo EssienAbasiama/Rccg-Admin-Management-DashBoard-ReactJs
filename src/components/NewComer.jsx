@@ -10,8 +10,8 @@ import { fetchNewComerData } from './api/api';
 // import { Link } from 'react-router-dom';
 
 function NewComer() {
-  // const baseURL = "https://rccgadonai.org/api";
-  const baseURL = "http://127.0.0.1:8000/api";
+  const baseURL = "https://rccgadonai.org/api";
+  // const baseURL = "http://127.0.0.1:8000/api";
   const [newComerList, setNewComerList] = useState([]);
   const { token, isAuthenticated, handleLogout } = useAuth();
   const [protectedData, setProtectedData] = useState(null);
