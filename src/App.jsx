@@ -1,21 +1,15 @@
-import './App.css';
-import Header from './components/Header';
-import Title from './components/Title';
-import Body from './components/Body';
-import Footer from './components/Footer';
-import NewComer from './components/NewComer';
-import LockScreen from './components/LockScreen';
+import "./App.css";
+import LockScreen from "./components/LockScreen";
+import { AuthProvider } from "./components/api/AuthContext";
+// import Login from './Login';
+// import ProtectedData from './ProtectedData';
 
 function App() {
-  const handleButtonClick = () => {
-    // Navigate to a new site when the button is clicked
-    window.location.href = 'https://www.example.com';
-    // or
-    // window.location.assign('https://www.example.com');
-  };
   return (
     <div className="App">
-      <LockScreen></LockScreen>
+      <AuthProvider>
+        <LockScreen></LockScreen>
+      </AuthProvider>
     </div>
   );
 }

@@ -1,34 +1,59 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./LockScreen.css";
 import Header from "./Header";
 import NewComer from "./NewComer";
 import Footer from "./Footer";
+import { useAuth } from "./api/AuthContext";
 
 function LockScreen() {
-  const username = "test";
-  const password = "test";
-  const [usernameInput, setUsernameInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
   const [valid, setValid] = useState(false);
   const [showErrorMessge, setShowErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
-  const handleUserName = (event) => {
-    setUsernameInput(event.target.value);
-  };
-  const handlePassword = (event) => {
-    setPasswordInput(event.target.value);
-  };
-  const handleSubmit = (event) => {
-    setLoading(true);
-    if (username === usernameInput && password === passwordInput) {
+  const { handleLogin } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { token, isAuthenticated, handleLogout } = useAuth();
+
+  //
+  // const handleSubmit = (event) => {
+  //   setLoading(true);
+  //   if (username === usernameInput && password === passwordInput) {
+  //     setValid(true);
+  //     setShowErrorMessage(false);
+  //   } else {
+  //     setValid(false);
+  //     setShowErrorMessage(true);
+  //   }
+  //   setLoading(false);
+  // };
+
+  useEffect(() => {
+    if (isAuthenticated) {
       setValid(true);
-      setShowErrorMessage(false);
     } else {
       setValid(false);
-      setShowErrorMessage(true);
     }
-    setLoading(false);
+  }, [isAuthenticated]);
+
+  useEffect(() => {}, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const token = await handleLogin(username, password);
+    validateToken(token);
+  };
+
+  const validateToken = (token) => {
+    if (token && typeof token === 'string' && token.trim().length > 0) {
+      // setValid(true);
+      console.log("Successful Login");
+      setLoading(false);
+    } else {
+      setShowErrorMessage(true);
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,22 +66,24 @@ function LockScreen() {
         </div>
       ) : (
         <div className="lockScreenBody">
-          <div className="lockBody">
+          <form onSubmit={handleSubmit} className="lockBody">
             <div className="lockScreen_Title">
               Welcome to RCCG Admin DashBoard,
             </div>
             <div className="login">Input Your Credentials to LogIn</div>
             {showErrorMessge ? (
               <div className="login_error">Invalid UserName or Password</div>
-            ): ""}
-
+            ) : (
+              ""
+            )}
             <div className="input_container">
               <input
                 type="text"
                 name="username"
                 id="username"
+                value={username}
                 placeholder="Input Your UserName"
-                onChange={handleUserName}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="input_container">
@@ -64,16 +91,27 @@ function LockScreen() {
                 type="password"
                 name="password"
                 id="password"
+                value={password}
                 placeholder="Input Password"
-                onChange={handlePassword}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
               <button onClick={handleSubmit} className="button-30">
-                Login {loading && <div class="lds-dual-ring"></div>}
+                Login{" "}
+                <span>
+                  {loading && (
+                    <div class="lds-ellipsis">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  )}
+                </span>
               </button>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </div>

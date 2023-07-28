@@ -5,27 +5,45 @@ import Popup from "./Popup";
 import BroadCast from "./BroadCast";
 import ScrollableModal from "./ScrollableModal";
 import DeleteConfirmation from "./DeleteConfirmation";
-
+import { useAuth } from './api/AuthContext';
+import { fetchNewComerData } from './api/api';
 // import { Link } from 'react-router-dom';
 
 function NewComer() {
-  const baseURL = "https://rccgadonai.org/api";
-  // const baseURL = "http://127.0.0.1:8000/api";
+  // const baseURL = "https://rccgadonai.org/api";
+  const baseURL = "http://127.0.0.1:8000/api";
   const [newComerList, setNewComerList] = useState([]);
+  const { token, isAuthenticated, handleLogout } = useAuth();
+  const [protectedData, setProtectedData] = useState(null);
+  const [error, setError] = useState(null);
   const [newComerListempty, setNewComerListEmpty] = useState(true);
   const [noOne, setNoOne] = useState(true);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isBroadcastPopupOpen, setBroadCastPopupOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [deleteConfirmation, setDeleteConfirmation] = useState(0);
-  const [wannaDelete, setWannaDelete] = useState(0);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [deleteModalOpen,setDeleteModalOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState(0);
   const [broadcastSent, setBroadcastSent] = useState(false);
   const [broadcastError, setBroadCastError] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchNewComerData(token)
+        .then((data) => {
+          setNewComerList(data);
+          setNewComerListEmpty(false);
+          // fetchData();
+          checkIfEmpty();
+        })
+        .catch((error) => setError(error.message));
+    } else {
+      // Handle the case when the user is not authenticated
+      setNewComerList([]);
+      setNewComerListEmpty(true);
+    }
+  }, [isAuthenticated, token]);
 
   const openModal = (newcomer) => {
     setModalOpen(true);
@@ -97,6 +115,7 @@ function NewComer() {
         setBroadcastSent(false);
         alert("Broadcast Failed to send");
         setBroadCastError(true);
+        console.log(error);
       });
   };
   async function fetchSearchData() {
@@ -145,11 +164,11 @@ function NewComer() {
     }
   }
   useEffect(() => {
-    fetchData();
-    checkIfEmpty();
+    
   }, []);
 
   return (
+    
     <div className="newcomers-body">
       <div class="search-bar">
         <input
