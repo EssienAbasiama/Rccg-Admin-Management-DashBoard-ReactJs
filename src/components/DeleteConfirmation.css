@@ -1,0 +1,81 @@
+/* * {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+} */
+
+.delete-Container-body {
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-body {
+    width: 350px;
+    height: 250px;
+    background-color: rgb(151, 231, 243);
+    border-radius: 30px;
+    text-align: center;
+}
+
+.delete-header {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.delete-question {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.delete-name {
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.delete-button-section {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.delete-button {
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.delete-proceed {
+    background-color: rgb(94, 41, 41);
+    color: white
+}
+
+.delete-cancel {
+    background-color: rgb(104, 134, 133);
+}
+
+.delete-proceed:hover {
+    background-color: rgb(120, 51, 51);
+}
+
+.delete-cancel:hover {
+    background-color: rgb(42, 90, 88);
+    color: black
+}
+
+.hidden-buttons {
+    display: none;
+}

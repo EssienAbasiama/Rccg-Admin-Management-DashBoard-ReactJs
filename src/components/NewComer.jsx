@@ -4,11 +4,13 @@ import axios from "axios";
 import Popup from "./Popup";
 import BroadCast from "./BroadCast";
 import ScrollableModal from "./ScrollableModal";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 // import { Link } from 'react-router-dom';
 
 function NewComer() {
   const baseURL = "https://rccgadonai.org/api";
+  // const baseURL = "http://127.0.0.1:8000/api";
   const [newComerList, setNewComerList] = useState([]);
   const [newComerListempty, setNewComerListEmpty] = useState(true);
   const [noOne, setNoOne] = useState(true);
@@ -16,9 +18,14 @@ function NewComer() {
   const [isBroadcastPopupOpen, setBroadCastPopupOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(0);
   const [wannaDelete, setWannaDelete] = useState(0);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedEmail, setSelectedEmail] = useState(null);
+  const [deleteModalOpen,setDeleteModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(0);
+  const [broadcastSent, setBroadcastSent] = useState(false);
+  const [broadcastError, setBroadCastError] = useState(false);
 
   const openModal = (newcomer) => {
     setModalOpen(true);
@@ -29,6 +36,19 @@ function NewComer() {
     setModalOpen(false);
     setSelectedUser(null);
   };
+  
+  const openDeleteModal = (newcomer) => {
+    setDeleteModalOpen(true);
+    setSelectedUser(newcomer);
+  }
+  
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+    setSelectedUser(null);
+    fetchData();
+  }
+
+
   const handleOpenPopup = (newcomer) => {
     setPopupOpen(true);
     setSelectedEmail(newcomer)
@@ -44,26 +64,7 @@ function NewComer() {
   const handleBroadCastClosePopup = () => {
     setBroadCastPopupOpen(false);
   };
-  async function deleteData(id) {
-    setWannaDelete(
-      prompt("Are you sure you want to delete? Enter 1 if so, Cancel if not")
-    );
-    if ((wannaDelete = 1)) {
-      try {
-        const response = await axios.delete(baseURL + "/newcomers/" + id);
-
-        return response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      return "";
-    }
-  }
-  const handleDelete = (id) => {
-    const data = deleteData(id);
-    fetchData();
-  };
+  
 
   const handleSubmit = (value,id) => {
     axios
@@ -89,12 +90,13 @@ function NewComer() {
       .then((response) => {
         // Handle the response data
         console.log(response.data);
-        alert("Success");
+        setBroadcastSent(true);
+        
       })
       .catch((error) => {
-        // Handle the error
-        alert("failure");
-        console.error(error);
+        setBroadcastSent(false);
+        alert("Broadcast Failed to send");
+        setBroadCastError(true);
       });
   };
   async function fetchSearchData() {
@@ -117,12 +119,21 @@ function NewComer() {
   async function fetchData() {
     try {
       const response = await axios.get(baseURL + "/newcomers");
-      setNewComerList(response.data);
-      setNewComerListEmpty(false);
-      console.log(response.data);
-      return response.data;
+      if(response.data.length > 0) {
+        setNoOne(false);
+        setNewComerList(response.data);
+        setNewComerListEmpty(false);
+        console.log(response.data);
+        return response.data;
+      }else {
+        setNoOne(true);
+        setNewComerListEmpty(false);
+        console.log(response.data);
+        return response.data;
+      }
+      
     } catch (error) {
-      console.log("An Error Occured "+error);
+      console.log("An Error Occured while fetching Newcomers");
     }
   }
 
@@ -194,11 +205,15 @@ function NewComer() {
 
                   <a
                     className="delete"
-                    onClick={() => handleDelete(newcomer.id)}
+                    onClick={() => {
+                      openDeleteModal(newcomer);
+                    }}
+                    // onClick={() => handleDelete(newcomer.id)}
                     href="#"
                   >
                     <i class="fa-solid fa-trash"></i>
                   </a>
+                  <DeleteConfirmation detail={selectedUser} isOpen={deleteModalOpen} onClose={closeDeleteModal} fetchdat={fetchData}/>
                   <div
                     className="profilePicture"
                     style={{
@@ -231,6 +246,8 @@ function NewComer() {
                       <BroadCast
                         onClose={handleBroadCastClosePopup}
                         onSubmit={handleBroadCastSubmit}
+                        error ={broadcastError}
+                        success ={broadcastSent}
                       />
                     )}
                   </div>

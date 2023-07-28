@@ -4,6 +4,7 @@ import Title from './components/Title';
 import Body from './components/Body';
 import Footer from './components/Footer';
 import NewComer from './components/NewComer';
+import LockScreen from './components/LockScreen';
 
 function App() {
   const handleButtonClick = () => {
@@ -14,12 +15,7 @@ function App() {
   };
   return (
     <div className="App">
-        <Header></Header>
-     {/* <Title></Title>
-      <Body></Body>*/}
-      <NewComer></NewComer>
-      <Footer></Footer> 
-      
+      <LockScreen></LockScreen>
     </div>
   );
 }
