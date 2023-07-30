@@ -33,7 +33,14 @@ function NewComer() {
       fetchNewComerData(token)
         .then((data) => {
           setNewComerList(data);
-          setNewComerListEmpty(false);
+          // setNewComerListEmpty(false);
+          if (data.trim().length > 0) {
+            setNewComerListEmpty(false);
+            setNoOne(true);
+          checkIfEmpty();
+          }
+          
+          
           // fetchData();
           checkIfEmpty();
         })
@@ -137,20 +144,41 @@ function NewComer() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(baseURL + "/newcomers");
-      if(response.data.length > 0) {
-        setNoOne(false);
-        setNewComerList(response.data);
-        setNewComerListEmpty(false);
-        console.log(response.data);
-        return response.data;
-      }else {
-        setNoOne(true);
-        setNewComerListEmpty(false);
-        console.log(response.data);
-        return response.data;
+      // if(response.data.length > 0) {
+      //   setNoOne(false);
+      //   setNewComerList(response.data);
+      //   setNewComerListEmpty(false);
+      //   console.log(response.data);
+      //   return response.data;
+      // }if(response.data.length == 0){
+      //   setNoOne(true);
+      //   setNewComerListEmpty(true);
+      //   return response.data;
+      // } else {
+      //   setNoOne(true);
+      //   setNewComerListEmpty(false);
+      //   console.log(response.data);
+      //   return response.data;
+      // }
+
+
+      if (isAuthenticated) {
+        fetchNewComerData(token)
+          .then((data) => {
+            setNewComerList(data);
+            if (data.trim().length > 0) {
+              setNewComerListEmpty(false);
+              setNoOne(true);
+            checkIfEmpty();
+            }
+            
+          })
+          .catch((error) => setError(error.message));
+      } else {
+        // Handle the case when the user is not authenticated
+        setNewComerList([]);
+        setNewComerListEmpty(true);
       }
-      
     } catch (error) {
       console.log("An Error Occured while fetching Newcomers");
     }
@@ -258,6 +286,8 @@ function NewComer() {
                         email={selectedEmail.id}
                         onClose={handleClosePopup}
                         onSubmit={handleSubmit}
+                        error ={broadcastError}
+                        success ={broadcastSent}
                       />
                       
                     )}

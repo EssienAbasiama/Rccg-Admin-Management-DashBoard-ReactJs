@@ -9,17 +9,17 @@ function DeleteConfirmation({isOpen, onClose, detail,fetchdat}) {
   const [isDelete, setdelete] = useState(false); 
   const [loading, setLoading] = useState(false); 
   async function deleteData(selectedUserId) {
-    if (isDelete == true) {
+    if (isDelete) {
       try {
         const response = await axios.delete(
           baseURL + "/newcomers/" + selectedUserId
         );
         closeModalaRef.current.click();
         fetchDataRef.current.click();
-
+        console.log("deleted");
         return response.data;
       } catch (error) {
-        console.error(error);
+        console.error("This the Error as a result of deleting"+error);
       }
     } else {
       return "Failed To Delete";
@@ -43,9 +43,14 @@ function DeleteConfirmation({isOpen, onClose, detail,fetchdat}) {
             </div>
             <div className="delete-name">{detail.surname} {detail.othername}</div>
             <div className="delete-button-section">
-              <button ref={fetchDataRef} id="fetchdata" onClick={fetchdat} className="hidden-buttons delete-button delete-cancel">fetchData</button>
-              <button ref={closeModalaRef} id="closemodal" onClick={onClose} className="delete-button delete-cancel">Cancel</button>
-              <button onClick={() => handleDelete(detail.id)} className="delete-button delete-proceed">Delete {loading && <div class="lds-dual-ring"></div>}</button>
+              <button ref={fetchDataRef} id="fetchdata" onClick={() => fetchdat()} className="hidden-buttons delete-button delete-cancel">fetchData</button>
+              <button ref={closeModalaRef} id="closemodal" onClick={() => onClose()} className="delete-button delete-cancel">Cancel</button>
+              <button onClick={() => handleDelete(detail.id)} className="delete-button delete-proceed">Delete {loading ? <div class="lds-ellipsis">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div> : ""}</button>
             </div>
           </div>
         </div>

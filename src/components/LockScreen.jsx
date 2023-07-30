@@ -14,6 +14,7 @@ function LockScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { token, isAuthenticated, handleLogout } = useAuth();
+  
 
   //
   // const handleSubmit = (event) => {

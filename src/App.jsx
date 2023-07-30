@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <LockScreen></LockScreen>
+        <LockScreen/>
       </AuthProvider>
     </div>
   );
